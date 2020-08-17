@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/mercuryRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/venusRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mercuryRow"/>
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/marsRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/venusRow"/>
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/jupiterRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/marsRow"/>
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/saturnRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jupiterRow"/>
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/uranusRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saturnRow"/>
+    <smarthur.space.astrotoday.PlanetRowView
+        android:id="@+id/neptuneRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uranusRow"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
