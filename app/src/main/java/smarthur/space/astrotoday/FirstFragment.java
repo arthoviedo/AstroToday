@@ -1,6 +1,7 @@
 package smarthur.space.astrotoday;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import org.jsoup.select.Elements;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class FirstFragment extends Fragment {
@@ -57,6 +59,7 @@ public class FirstFragment extends Fragment {
     public void update() {
         for (Map.Entry<Planets, PlanetRowView> entry : planetRowViewList.entrySet()) {
             fetchPlanetInfo(
+                    entry.getKey(),
                     entry.getKey().url,
                     entry.getValue().planetMagnitude,
                     entry.getValue().planetSize);
@@ -64,6 +67,7 @@ public class FirstFragment extends Fragment {
     }
 
     public void fetchPlanetInfo(
+            final Planets planet,
             final String url,
             final TextView magnitudeView,
             final TextView sizeView) {
@@ -79,7 +83,7 @@ public class FirstFragment extends Fragment {
                     Element magnitude = div1.child(1); // AR
                     Element div2 = temp2.next().next().first();
                     Element size = div2.child(1); //Diameter
-                    updateUi(magnitude.text(), size.text(), magnitudeView, sizeView);
+                    updateUi(planet, magnitude.text(), size.text(), magnitudeView, sizeView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -88,6 +92,7 @@ public class FirstFragment extends Fragment {
     }
 
     public void updateUi(
+            final Planets planet,
             final String magnitude,
             final String size,
             final TextView magnitudeView,
@@ -95,8 +100,18 @@ public class FirstFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                magnitudeView.setText(magnitude);
-                sizeView.setText(size);
+                magnitudeView.setText(
+                        Html.fromHtml(String.format(
+                                Locale.US,
+                                "Magn.:(%.1f/<b>%.1f</b>/%.1f)",
+                                planet.minMagnitude,
+                                Float.parseFloat(magnitude),
+                                planet.maxMagnitude)));
+                sizeView.setText(
+                        Html.fromHtml(String.format("Size:(%s\"/<b>%s</b>/%s\")",
+                                planet.minSize,
+                                size,
+                                planet.maxSize)));
             }
         });
     }
@@ -106,19 +121,28 @@ public class FirstFragment extends Fragment {
     }
 
     enum Planets {
-        MERCURY("Mercury"),
-        VENUS("Venus"),
-        MARS("Mars"),
-        JUPITER("Jupiter"),
-        SATURN("Saturn"),
-        URANUS("Uranus"),
-        NEPTUNE("Neptune");
+        MERCURY("Mercury", -2.48f, 7.25f, 4.5f, 13f),
+        VENUS("Venus", -4.92f, -2.98f, 9.7f, 66.0f),
+        MARS("Mars", -2.94f,1.86f,3.5f,25.1f),
+        JUPITER("Jupiter", -2.94f, 1.66f, 29.8f, 50.1f),
+        SATURN("Saturn", -0.55f, 1.17f, 14.5f, 20.1f),
+        URANUS("Uranus", 5.38f, 6.03f, 3.3f, 4.1f),
+        NEPTUNE("Neptune", 7.67f, 8.00f, 2.2f, 2.4f);
 
         String name;
         String url;
+        float minMagnitude;
+        float maxMagnitude;
+        float minSize;
+        float maxSize;
 
-        Planets(String name) {
+
+        Planets(String name, float minMagnitude, float maxMagnitude, float minSize, float maxSize) {
             this.name = name;
+            this.minMagnitude = minMagnitude;
+            this.maxMagnitude = maxMagnitude;
+            this.minSize = minSize;
+            this.maxSize = maxSize;
             this.url = String.format("https://theskylive.com/%s-info", name.toLowerCase());
         }
     }
