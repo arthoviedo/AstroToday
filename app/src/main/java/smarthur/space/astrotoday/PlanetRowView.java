@@ -11,6 +11,7 @@ public class PlanetRowView extends ConstraintLayout {
     TextView planetSize;
     TextView nameLabel;
     TextView seeingCondition;
+    TransitInfoView transitInfoView;
 
     public PlanetRowView(Context context) {
         super(context);
@@ -27,6 +28,7 @@ public class PlanetRowView extends ConstraintLayout {
         planetMagnitude = findViewById(R.id.planet_magnitude);
         planetSize = findViewById(R.id.planet_size);
         nameLabel = findViewById(R.id.name_label);
+        transitInfoView = findViewById(R.id.transit_info);
     }
 
 

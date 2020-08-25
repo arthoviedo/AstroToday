@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/rise_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="monospace"
+        android:text="Rise:**:**"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/transit_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Rise:**:**" />
+
+    <TextView
+        android:id="@+id/transit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:text="Transit:**:**"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/set_time"
+        app:layout_constraintStart_toEndOf="@id/rise_time"
+        app:layout_constraintTop_toTopOf="@id/rise_time"
+        tools:text="Transit:**:**" />
+
+    <TextView
+        android:id="@+id/set_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:text="Set:**:**"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/transit_time"
+        app:layout_constraintTop_toTopOf="@id/rise_time"
+        tools:text="Set:**:**" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

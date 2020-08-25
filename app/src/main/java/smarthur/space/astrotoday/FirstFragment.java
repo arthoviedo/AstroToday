@@ -2,7 +2,6 @@ package smarthur.space.astrotoday;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -62,7 +54,8 @@ public class FirstFragment extends Fragment {
                     entry.getKey(),
                     entry.getKey().url,
                     entry.getValue().planetMagnitude,
-                    entry.getValue().planetSize);
+                    entry.getValue().planetSize,
+                    entry.getValue().transitInfoView);
         }
     }
 
@@ -70,12 +63,17 @@ public class FirstFragment extends Fragment {
             final Planets planet,
             final String url,
             final TextView magnitudeView,
-            final TextView sizeView) {
+            final TextView sizeView,
+            final TransitInfoView transitInfoView) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Document doc = Jsoup.connect(url).get();
+                    Connection connection = Jsoup.connect(url);
+                    connection.cookie(
+                            "localdata_v1",
+                            "-33.86785%7C151.20732%7CSydney+%28AU%29%7CAustralia%2FSydney%7C0");
+                    Document doc = connection.get();
                     Elements parent = doc.select("a[name=\"brightness\"]");
                     Elements temp1 = parent.next(); //<h1> Planet Brightness
                     Elements temp2 = temp1.next();          //<p>
@@ -83,7 +81,16 @@ public class FirstFragment extends Fragment {
                     Element magnitude = div1.child(1); // AR
                     Element div2 = temp2.next().next().first();
                     Element size = div2.child(1); //Diameter
-                    updateUi(planet, magnitude.text(), size.text(), magnitudeView, sizeView);
+                    updatePlanetVisibility(planet, magnitude.text(), size.text(), magnitudeView, sizeView);
+
+                    Elements riseInfo = doc.select("div[class=\"rise\"]");
+                    Elements transitInfo = riseInfo.next();
+                    Elements setInfo = transitInfo.next();
+                    updatePlanetTransit(
+                            riseInfo.first().child(2).text(),
+                            transitInfo.first().child(2).text(),
+                            setInfo.first().child(2).text(),
+                            transitInfoView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -91,7 +98,7 @@ public class FirstFragment extends Fragment {
         }).start();
     }
 
-    public void updateUi(
+    public void updatePlanetVisibility(
             final Planets planet,
             final String magnitude,
             final String size,
@@ -116,8 +123,19 @@ public class FirstFragment extends Fragment {
         });
     }
 
-    private void processPlanetInfo(String response) {
-
+    public void updatePlanetTransit(
+            final String riseTime,
+            final String transitTime,
+            final String setTime,
+            final TransitInfoView transitInfoView) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                transitInfoView.riseTime.setText("Rise:" + riseTime);
+                transitInfoView.transitTime.setText("Transit:" + transitTime);
+                transitInfoView.setTime.setText("Set:" + setTime);
+            }
+        });
     }
 
     enum Planets {
@@ -135,7 +153,7 @@ public class FirstFragment extends Fragment {
         float maxMagnitude;
         float minSize;
         float maxSize;
-
+        TransitInfo transitInfo;
 
         Planets(String name, float minMagnitude, float maxMagnitude, float minSize, float maxSize) {
             this.name = name;
@@ -144,6 +162,18 @@ public class FirstFragment extends Fragment {
             this.minSize = minSize;
             this.maxSize = maxSize;
             this.url = String.format("https://theskylive.com/%s-info", name.toLowerCase());
+        }
+    }
+
+    class TransitInfo {
+        Calendar riseTime;
+        Calendar transitTime;
+        Calendar setTime;
+
+        TransitInfo(Calendar riseTime, Calendar transitTime, Calendar setTime) {
+            this.riseTime = riseTime;
+            this.transitTime = transitTime;
+            this.setTime = setTime;
         }
     }
 }
