@@ -7,8 +7,10 @@
 
     <TextView
         android:id="@+id/rise_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:fontFamily="monospace"
         android:text="Rise:**:**"
@@ -16,11 +18,12 @@
         app:layout_constraintEnd_toStartOf="@id/transit_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:gravity="start"
         tools:text="Rise:**:**" />
 
     <TextView
         android:id="@+id/transit_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
         android:text="Transit:**:**"
@@ -32,7 +35,7 @@
 
     <TextView
         android:id="@+id/set_time"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="monospace"
         android:textSize="12sp"

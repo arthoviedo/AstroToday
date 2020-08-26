@@ -6,8 +6,8 @@
     app:startDestination="@id/FirstFragment">
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="smarthur.space.astrotoday.FirstFragment"
+        android:name="smarthur.space.astrotoday.HomeFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_home">
     </fragment>
 </navigation>
