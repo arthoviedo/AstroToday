@@ -83,10 +83,15 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                         "https://theskylive.com/sky/deepsky/ngc7293-helix-nebula-object",
                         "https://upload.wikimedia.org/wikipedia/commons/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
+        int count = 0;
         for(Map.Entry<PlanetaryNebula,  PlanetaryNebulaRowView> entry
             : planetaryNebulaMap.entrySet()) {
             entry.getValue().nameLabel.setText(entry.getKey().name);
             ((LinearLayout)getView().findViewById(R.id.planetary_nabulae)).addView(entry.getValue());
+            if (count % 2 == 0) {
+                entry.getValue().setBackgroundColor(getResources().getColor(R.color.lightGrey, null));
+            }
+            count++;
         }
     }
 
