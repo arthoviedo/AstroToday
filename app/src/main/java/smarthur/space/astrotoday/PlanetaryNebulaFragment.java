@@ -77,7 +77,12 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                         "https://theskylive.com/sky/deepsky/ngc6818-little-gem-nebula-object",
                         "https://upload.wikimedia.org/wikipedia/commons/f/f6/Ngc6818.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
-
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Helix Nebula (NGC 7293)",
+                        "https://theskylive.com/sky/deepsky/ngc7293-helix-nebula-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
+                new PlanetaryNebulaRowView(getContext()));
         for(Map.Entry<PlanetaryNebula,  PlanetaryNebulaRowView> entry
             : planetaryNebulaMap.entrySet()) {
             entry.getValue().nameLabel.setText(entry.getKey().name);
