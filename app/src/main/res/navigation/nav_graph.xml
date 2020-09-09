@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/planets_fragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="smarthur.space.astrotoday.HomeFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_home">
+        android:id="@+id/planets_fragment"
+        android:name="smarthur.space.astrotoday.PlanetFragment"
+        android:label="@string/planets_fragment_label"
+        tools:layout="@layout/fragment_planets">
     </fragment>
+    <fragment
+        android:id="@+id/planetaryNebulaFragment"
+        android:name="smarthur.space.astrotoday.PlanetaryNebulaFragment"
+        android:label="@string/planetary_nebulae_fragment_label"
+        tools:layout="@layout/fragment_planetary_nabulae"/>
 </navigation>

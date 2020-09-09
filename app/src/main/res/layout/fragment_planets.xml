@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".PlanetFragment">
 
     <smarthur.space.astrotoday.PlanetRowView
         android:id="@+id/mercuryRow"
@@ -49,10 +49,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/uranusRow"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/planetary_nabulas"
-        android:orientation="vertical">
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

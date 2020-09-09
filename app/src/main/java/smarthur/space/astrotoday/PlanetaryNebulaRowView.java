@@ -9,8 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 public class PlanetaryNebulaRowView extends ConstraintLayout {
     TextView nameLabel;
     TextView visualMagnitude;
-    TextView majorSize;
-    TextView minorSize;
+    TextView majorMinorSize;
     TransitInfoView transitInfoView;
 
     public PlanetaryNebulaRowView(Context context) {
@@ -24,11 +23,10 @@ public class PlanetaryNebulaRowView extends ConstraintLayout {
     }
 
     void init() {
-        inflate(getContext(), R.layout.planetary_row, this);
+        inflate(getContext(), R.layout.planetary_nebula_row, this);
         nameLabel = findViewById(R.id.name_label);
-        visualMagnitude = findViewById(R.id.planet_magnitude);
-        majorSize = findViewById(R.id.planet_size);
-        minorSize = findViewById(R.id.planet_size);
+        visualMagnitude = findViewById(R.id.visual_magnitude);
+        majorMinorSize = findViewById(R.id.major_minor_size);
         transitInfoView = findViewById(R.id.transit_info);
     }
 
