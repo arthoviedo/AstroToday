@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.bumptech.glide.Glide;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -24,12 +27,12 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
 
 
     private final static String COOKIE_INFO =
-        "-33.86785%7C151.20732%7CSydney+%28AU%29%7CAustralia%2FSydney%7C0";
+            "-33.86785%7C151.20732%7CSydney+%28AU%29%7CAustralia%2FSydney%7C0";
 
     @Override
     public View onCreateView(
-        LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_planetary_nabulae, container, false);
@@ -40,36 +43,54 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void initPlanetaryNebulae(){
-        planetaryNebulaMap.put(
-            new PlanetaryNebula(
-                "Sprirograph Nebula (IC 418)",
-                "https://theskylive.com/sky/deepsky/ic418-object",
-                "https://upload.wikimedia.org/wikipedia/commons/6/6b/Spirograph_Nebula_-_Hubble_1999.jpg"),
-            new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(
-            new PlanetaryNebula(
-                "Ghost of Jupiter Nebula (NGC 3242)",
-                "https://theskylive.com/sky/deepsky/ngc3242-jupiters-ghost-nebula-object",
-                "https://en.wikipedia.org/wiki/NGC_3242#/media/File:NGC_3242_%22Ghost_of_Jupiter%22.png"),
-            new PlanetaryNebulaRowView(getContext()));
+    public void initPlanetaryNebulae() {
         planetaryNebulaMap.put(
                 new PlanetaryNebula(
-                "Ring Nebula (M 57)",
-                "https://theskylive.com/sky/deepsky/messier-57-ring-nebula-object",
-                "https://upload.wikimedia.org/wikipedia/commons/1/13/M57_The_Ring_Nebula.JPG"),
+                        "Saturn Nebula (NGC 7009)",
+                        "https://theskylive.com/sky/deepsky/ngc7009-saturn-nebula-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/c/c9/MUSE_image_of_the_Saturn_Nebula.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(
                 new PlanetaryNebula(
-                "Blue Racquetball Nebula (NGC 6572)",
-                "https://theskylive.com/sky/deepsky/ngc6572-object",
-                "https://upload.wikimedia.org/wikipedia/commons/c/cd/NGC_6572.jpg"),
+                        "Blinking Planetary (NGC 6826)",
+                        "https://theskylive.com/sky/deepsky/ngc6826-blinking-planetary-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/8/83/NGC_6826HSTFull.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(
                 new PlanetaryNebula(
-                "Blue Flash Nebula (NGC 6905)",
-                "https://theskylive.com/sky/deepsky/ngc6905-blue-flash-nebula-object",
-                "https://upload.wikimedia.org/wikipedia/commons/7/70/NGC_6905_-_VLT%28FORS2%29_-_RHaBOIII.png"),
+                        "Sprirograph Nebula (IC 418)",
+                        "https://theskylive.com/sky/deepsky/ic418-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Spirograph_Nebula_-_Hubble_1999.jpg"),
+                new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Cat's Eye Nebula (NGC 6543)",
+                        "https://theskylive.com/sky/deepsky/ngc6543-cats-eye-nebula-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/5/5a/NGC6543.jpg"),
+                new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Ghost of Jupiter Nebula (NGC 3242)",
+                        "https://theskylive.com/sky/deepsky/ngc3242-jupiters-ghost-nebula-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/1/14/NGC_3242_%22Ghost_of_Jupiter%22.png"),
+                new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Ring Nebula (M 57)",
+                        "https://theskylive.com/sky/deepsky/messier-57-ring-nebula-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/1/13/M57_The_Ring_Nebula.JPG"),
+                new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Blue Racquetball Nebula (NGC 6572)",
+                        "https://theskylive.com/sky/deepsky/ngc6572-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/c/cd/NGC_6572.jpg"),
+                new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Blue Flash Nebula (NGC 6905)",
+                        "https://theskylive.com/sky/deepsky/ngc6905-blue-flash-nebula-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/7/70/NGC_6905_-_VLT%28FORS2%29_-_RHaBOIII.png"),
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(
                 new PlanetaryNebula(
@@ -83,11 +104,30 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                         "https://theskylive.com/sky/deepsky/ngc7293-helix-nebula-object",
                         "https://upload.wikimedia.org/wikipedia/commons/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(
+                new PlanetaryNebula(
+                        "Copeland's Blue Snowball (NGC 7662)",
+                        "https://theskylive.com/sky/deepsky/ngc7662-copelands-blue-snowball-object",
+                        "https://upload.wikimedia.org/wikipedia/commons/7/7e/NGC_7662_%22Blue_Snowball%22.jpg"),
+                new PlanetaryNebulaRowView(getContext()));
         int count = 0;
-        for(Map.Entry<PlanetaryNebula,  PlanetaryNebulaRowView> entry
-            : planetaryNebulaMap.entrySet()) {
+        for (final Map.Entry<PlanetaryNebula, PlanetaryNebulaRowView> entry
+                : planetaryNebulaMap.entrySet()) {
             entry.getValue().nameLabel.setText(entry.getKey().name);
-            ((LinearLayout)getView().findViewById(R.id.planetary_nabulae)).addView(entry.getValue());
+            ((LinearLayout) getView().findViewById(R.id.planetary_nabulae)).addView(entry.getValue());
+            Glide.with(this).load(entry.getKey().imageUrl).into(entry.getValue().image);
+            entry.getValue().image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FullScreenImageDialogFragment newFragment = FullScreenImageDialogFragment.newInstance(entry.getKey().imageUrl);
+                    FragmentTransaction ft =
+                            getParentFragmentManager()
+                                    .beginTransaction();
+                    ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);;
+                    
+                    newFragment.show(ft, "dialog");
+                }
+            });
             if (count % 2 == 0) {
                 entry.getValue().setBackgroundColor(getResources().getColor(R.color.lightGrey, null));
             }
@@ -96,16 +136,15 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
     }
 
 
-
     public void update() {
-       for (Map.Entry<PlanetaryNebula, PlanetaryNebulaRowView> entry : planetaryNebulaMap.entrySet()) {
+        for (Map.Entry<PlanetaryNebula, PlanetaryNebulaRowView> entry : planetaryNebulaMap.entrySet()) {
             fetchPlanetaryNebulaInfo(entry.getKey(), entry.getValue());
-       }
+        }
     }
 
     public void fetchPlanetaryNebulaInfo(
-        final PlanetaryNebula planetaryNebula,
-        final PlanetaryNebulaRowView view
+            final PlanetaryNebula planetaryNebula,
+            final PlanetaryNebulaRowView view
     ) {
         new Thread(new Runnable() {
             @Override
@@ -119,20 +158,20 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                     Elements minorSize = doc.select(":matchesOwn(Minor Angular Size)");
                     Elements minorSizeValue = minorSize.next(); //<h1> Planet Brightness
                     updatePlanetaryNebula(
-                        planetaryNebula,
-                        visualMagnitudeValue.text(),
-                        majorSizeValue.text(),
-                        minorSizeValue.text(),
-                        view);
+                            planetaryNebula,
+                            visualMagnitudeValue.text(),
+                            majorSizeValue.text(),
+                            minorSizeValue.text(),
+                            view);
 
                     Elements riseInfo = doc.select("div[class=\"rise\"]");
                     Elements transitInfo = riseInfo.next();
                     Elements setInfo = transitInfo.next();
                     updateTransit(
-                        riseInfo.first().child(2).text(),
-                        transitInfo.first().child(2).text(),
-                        setInfo.first().child(2).text(),
-                        view.transitInfoView);
+                            riseInfo.first().child(2).text(),
+                            transitInfo.first().child(2).text(),
+                            setInfo.first().child(2).text(),
+                            view.transitInfoView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -140,11 +179,11 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
         }).start();
     }
 
-    Document getDocument(String url) throws Exception{
+    Document getDocument(String url) throws Exception {
         Connection connection = Jsoup.connect(url);
         connection.cookie(
-            "localdata_v1",
-            COOKIE_INFO);
+                "localdata_v1",
+                COOKIE_INFO);
         return connection.get();
     }
 
@@ -173,10 +212,10 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
     }
 
     public void updateTransit(
-        final String riseTime,
-        final String transitTime,
-        final String setTime,
-        final TransitInfoView transitInfoView) {
+            final String riseTime,
+            final String transitTime,
+            final String setTime,
+            final TransitInfoView transitInfoView) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -186,15 +225,16 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
             }
         });
     }
+
     class PlanetaryNebula {
         String name;
         String theSkyLiveUrl;
         String imageUrl;
 
         public PlanetaryNebula(
-            String name,
-            String theSkyLiveUrl,
-            String imageUrl) {
+                String name,
+                String theSkyLiveUrl,
+                String imageUrl) {
             this.name = name;
             this.theSkyLiveUrl = theSkyLiveUrl;
             this.imageUrl = imageUrl;
