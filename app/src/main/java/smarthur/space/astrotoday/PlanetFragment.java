@@ -91,11 +91,12 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
                     Elements riseInfo = doc.select("div[class=\"rise\"]");
                     Elements transitInfo = riseInfo.next();
                     Elements setInfo = transitInfo.next();
-                    updateTransit(
-                        riseInfo.first().child(2).text(),
-                        transitInfo.first().child(2).text(),
-                        setInfo.first().child(2).text(),
-                        view.transitInfoView);
+
+                    view.transitInfoView.updateTransit(
+                            getActivity(),
+                            riseInfo.first().child(2).text(),
+                            transitInfo.first().child(2).text(),
+                            setInfo.first().child(2).text());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -131,21 +132,6 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
                         planet.minSize,
                         size,
                         planet.maxSize)));
-            }
-        });
-    }
-
-    public void updateTransit(
-        final String riseTime,
-        final String transitTime,
-        final String setTime,
-        final TransitInfoView transitInfoView) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                transitInfoView.riseTime.setText("Rise:" + riseTime);
-                transitInfoView.transitTime.setText("Transit:" + transitTime);
-                transitInfoView.setTime.setText("Set:" + setTime);
             }
         });
     }

@@ -1,5 +1,6 @@
 package smarthur.space.astrotoday;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -27,5 +28,21 @@ public class TransitInfoView extends ConstraintLayout {
         riseTime = findViewById(R.id.rise_time);
         transitTime = findViewById(R.id.transit_time);
         setTime = findViewById(R.id.set_time);
+    }
+
+    public void updateTransit(
+            Activity activity,
+            final String riseTime,
+            final String transitTime,
+            final String setTime) {
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TransitInfoView.this.riseTime.setText(getContext().getString(R.string.rise_time, riseTime));
+                TransitInfoView.this.transitTime.setText(getContext().getString(R.string.transit_time, transitTime));
+                TransitInfoView.this.setTime.setText(getContext().getString(R.string.set_time, setTime));
+            }
+        });
     }
 }

@@ -157,11 +157,11 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                     Elements riseInfo = doc.select("div[class=\"rise\"]");
                     Elements transitInfo = riseInfo.next();
                     Elements setInfo = transitInfo.next();
-                    updateTransit(
+                    view.transitInfoView.updateTransit(
+                            getActivity(),
                             riseInfo.first().child(2).text(),
                             transitInfo.first().child(2).text(),
-                            setInfo.first().child(2).text(),
-                            view.transitInfoView);
+                            setInfo.first().child(2).text());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -197,21 +197,6 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                                 "Size:%s x %s",
                                 majorSize,
                                 minorSize)));
-            }
-        });
-    }
-
-    public void updateTransit(
-            final String riseTime,
-            final String transitTime,
-            final String setTime,
-            final TransitInfoView transitInfoView) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                transitInfoView.riseTime.setText("Rise:" + riseTime);
-                transitInfoView.transitTime.setText("Transit:" + transitTime);
-                transitInfoView.setTime.setText("Set:" + setTime);
             }
         });
     }
