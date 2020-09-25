@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Ring Nebula" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/visual_magnitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="monospace"
+        android:text="Visual Magnitude: 0.0"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/name_label"
+        app:layout_constraintTop_toBottomOf="@id/name_label"
+        tools:text="Visual Magnitude: 0.0" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/major_minor_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textSize="12sp"
+        android:text="Size: 0.0 x 0.0"
+        app:layout_constraintTop_toBottomOf="@id/visual_magnitude"
+        app:layout_constraintStart_toStartOf="@id/name_label"
+        tools:text="Size: 0.0 x 0.0"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="@id/name_label"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <smarthur.space.astrotoday.TransitInfoView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/transit_info"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="@id/name_label"
+        app:layout_constraintTop_toBottomOf="@id/major_minor_size">
+    </smarthur.space.astrotoday.TransitInfoView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

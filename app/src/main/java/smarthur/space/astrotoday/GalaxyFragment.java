@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragment {
-    Map<PlanetaryNebula, PlanetaryNebulaRowView> planetaryNebulaMap = new HashMap<>();
+public class GalaxyFragment extends Fragment implements UpdatableFragment {
+    Map<Galaxy, GalaxyRowView> galaxyMap = new HashMap<>();
 
 
     private final static String COOKIE_INFO =
@@ -38,72 +38,44 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_planetary_nabulae, container, false);
+        return inflater.inflate(R.layout.fragment_galaxy, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        initPlanetaryNebulae();
+        initGalaxies();
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void initPlanetaryNebulae() {
-        planetaryNebulaMap.put(new PlanetaryNebula("Saturn Nebula (NGC 7009)",
-                        SKY_LIVE_INFO_PREFIX + "ngc7009-saturn-nebula-object",
-                        WIKIMEDIA_PREFIX + "/c/c9/MUSE_image_of_the_Saturn_Nebula.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Blinking Planetary (NGC 6826)",
-                        SKY_LIVE_INFO_PREFIX + "ngc6826-blinking-planetary-object",
-                        WIKIMEDIA_PREFIX + "/8/83/NGC_6826HSTFull.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Sprirograph Nebula (IC 418)",
-                        SKY_LIVE_INFO_PREFIX + "ic418-object",
-                        WIKIMEDIA_PREFIX + "/6/6b/Spirograph_Nebula_-_Hubble_1999.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Cat's Eye Nebula (NGC 6543)",
-                        SKY_LIVE_INFO_PREFIX + "ngc6543-cats-eye-nebula-object",
-                        WIKIMEDIA_PREFIX + "/5/5a/NGC6543.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Ghost of Jupiter Nebula (NGC 3242)",
-                        SKY_LIVE_INFO_PREFIX + "ngc3242-jupiters-ghost-nebula-object",
-                        WIKIMEDIA_PREFIX + "/1/14/NGC_3242_%22Ghost_of_Jupiter%22.png"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Ring Nebula (M 57)",
-                        SKY_LIVE_INFO_PREFIX + "messier-57-ring-nebula-object",
-                        WIKIMEDIA_PREFIX + "/1/13/M57_The_Ring_Nebula.JPG"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Blue Racquetball Nebula (NGC 6572)",
-                        SKY_LIVE_INFO_PREFIX + "ngc6572-object",
-                        WIKIMEDIA_PREFIX + "/c/cd/NGC_6572.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Blue Flash Nebula (NGC 6905)",
-                        SKY_LIVE_INFO_PREFIX + "ngc6905-blue-flash-nebula-object",
-                        WIKIMEDIA_PREFIX + "/7/70/NGC_6905_-_VLT%28FORS2%29_-_RHaBOIII.png"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Little Gem Nebula (NGC 6818)",
-                        SKY_LIVE_INFO_PREFIX + "ngc6818-little-gem-nebula-object",
-                        WIKIMEDIA_PREFIX + "/f/f6/Ngc6818.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Helix Nebula (NGC 7293)",
-                        SKY_LIVE_INFO_PREFIX + "ngc7293-helix-nebula-object",
-                        WIKIMEDIA_PREFIX + "/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Copeland's Blue Snowball (NGC 7662)",
-                        SKY_LIVE_INFO_PREFIX + "ngc7662-copelands-blue-snowball-object",
-                        WIKIMEDIA_PREFIX + "/7/7e/NGC_7662_%22Blue_Snowball%22.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Eskimo Nebula (NGC 2392)",
-                        SKY_LIVE_INFO_PREFIX + "ngc2392-eskimo-nebula-object",
-                        WIKIMEDIA_PREFIX + "/1/16/Ngc2392.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
-        planetaryNebulaMap.put(new PlanetaryNebula("Retina Nebula (IC 4406)",
-                        SKY_LIVE_INFO_PREFIX + "ic4406-object",
-                        WIKIMEDIA_PREFIX + "/1/1a/Retinanebel.jpg"),
-                new PlanetaryNebulaRowView(getContext()));
+    public void initGalaxies() {
+        galaxyMap.put(new Galaxy("Pinwheel Galaxy (M101)",
+                        SKY_LIVE_INFO_PREFIX + "messier-101-the-pinwheel-galaxy-object",
+                        WIKIMEDIA_PREFIX + "/c/c5/M101_hires_STScI-PRC2006-10a.jpg"),
+                new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("Bode's Galaxy (M81)",
+                        SKY_LIVE_INFO_PREFIX + "messier-81-bodes-galaxy-object",
+                        WIKIMEDIA_PREFIX + "/6/63/Messier_81_HST.jpg"),
+                new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("Southern Pinwheel Galaxy (M83)",
+                        SKY_LIVE_INFO_PREFIX + "messier-83-southern-pinwheel-galaxy-object",
+                        WIKIMEDIA_PREFIX + "/d/d5/Hubble_view_of_barred_spiral_galaxy_Messier_83.jpg"),
+                new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("Triangulum Galaxy (M33)",
+                        SKY_LIVE_INFO_PREFIX + "messier-33-triangulum-galaxy-object",
+                        WIKIMEDIA_PREFIX + "/6/64/VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg"),
+                new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("Sculptor Galaxy (NGC 253)",
+                        SKY_LIVE_INFO_PREFIX + "ngc253-sculptor-filament-object",
+                        WIKIMEDIA_PREFIX + "/0/08/Sculptor_Galaxy_by_VISTA.jpg"),
+                new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("Croc's Eye Galaxy (M94)",
+                        SKY_LIVE_INFO_PREFIX + "messier-94-crocs-eye-galaxy-object",
+                        WIKIMEDIA_PREFIX + "/1/1c/Messier_94.jpg"),
+                new GalaxyRowView(getContext()));
         int count = 0;
-        for (final Map.Entry<PlanetaryNebula, PlanetaryNebulaRowView> entry
-                : planetaryNebulaMap.entrySet()) {
+        for (final Map.Entry<Galaxy, GalaxyRowView> entry
+                : galaxyMap.entrySet()) {
             entry.getValue().nameLabel.setText(entry.getKey().name);
-            ((LinearLayout) getView().findViewById(R.id.planetary_nabulae)).addView(entry.getValue());
+            ((LinearLayout) getView().findViewById(R.id.galaxies)).addView(entry.getValue());
             Glide.with(this).load(entry.getKey().imageUrl).into(entry.getValue().image);
             entry.getValue().image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,27 +99,27 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
 
 
     public void update() {
-        for (Map.Entry<PlanetaryNebula, PlanetaryNebulaRowView> entry : planetaryNebulaMap.entrySet()) {
-            fetchPlanetaryNebulaInfo(entry.getKey(), entry.getValue());
+        for (Map.Entry<Galaxy, GalaxyRowView> entry : galaxyMap.entrySet()) {
+            fetchGalaxyInfo(entry.getKey(), entry.getValue());
         }
     }
 
-    public void fetchPlanetaryNebulaInfo(
-            final PlanetaryNebula planetaryNebula,
-            final PlanetaryNebulaRowView view
+    public void fetchGalaxyInfo(
+            final Galaxy galaxy,
+            final GalaxyRowView view
     ) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Document doc = getDocument(planetaryNebula.theSkyLiveUrl);
+                    Document doc = getDocument(galaxy.theSkyLiveUrl);
                     Elements visualMagnitude = doc.select(":matchesOwn(Magnitude V)");
                     Elements visualMagnitudeValue = visualMagnitude.next(); //<h1> Planet Brightness
                     Elements majorSize = doc.select(":matchesOwn(Major Angular Size)");
                     Elements majorSizeValue = majorSize.next(); //<h1> Planet Brightness
                     Elements minorSize = doc.select(":matchesOwn(Minor Angular Size)");
                     Elements minorSizeValue = minorSize.next(); //<h1> Planet Brightness
-                    updatePlanetaryNebula(
+                    updateGalaxy(
                             visualMagnitudeValue.text(),
                             majorSizeValue.text(),
                             minorSizeValue.text(),
@@ -176,11 +148,11 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
         return connection.get();
     }
 
-    public void updatePlanetaryNebula(
+    public void updateGalaxy(
             final String visualMagnitude,
             final String majorSize,
             final String minorSize,
-            final PlanetaryNebulaRowView view) {
+            final GalaxyRowView view) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -199,12 +171,12 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
         });
     }
 
-    class PlanetaryNebula {
+    class Galaxy {
         String name;
         String theSkyLiveUrl;
         String imageUrl;
 
-        public PlanetaryNebula(
+        public Galaxy(
                 String name,
                 String theSkyLiveUrl,
                 String imageUrl) {

@@ -4,4 +4,6 @@
         android:title="Planets"/>
     <item android:id="@+id/planetary_nebulae"
         android:title="Planetary Nebulae"/>
+    <item android:id="@+id/galaxies"
+        android:title="Galaxies"/>
 </menu>

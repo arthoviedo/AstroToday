@@ -49,7 +49,10 @@ public class MainActivity extends AppCompatActivity {
                         navHostFragment.getNavController().navigate(R.id.planets_fragment);
                         break;
                     case R.id.planetary_nebulae:
-                        navHostFragment.getNavController().navigate(R.id.planetaryNebulaFragment);
+                        navHostFragment.getNavController().navigate(R.id.planetary_nebulae_fragment);
+                        break;
+                    case R.id.galaxies:
+                        navHostFragment.getNavController().navigate(R.id.galaxies_fragment);
                         break;
                 }
                 return true;
