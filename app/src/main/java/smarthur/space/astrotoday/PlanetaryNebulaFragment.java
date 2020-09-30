@@ -85,7 +85,7 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(new PlanetaryNebula("Helix Nebula (NGC 7293)",
                         SKY_LIVE_INFO_PREFIX + "ngc7293-helix-nebula-object",
-                        WIKIMEDIA_PREFIX + "/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
+                            WIKIMEDIA_PREFIX + "/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(new PlanetaryNebula("Copeland's Blue Snowball (NGC 7662)",
                         SKY_LIVE_INFO_PREFIX + "ngc7662-copelands-blue-snowball-object",
@@ -98,6 +98,10 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
         planetaryNebulaMap.put(new PlanetaryNebula("Retina Nebula (IC 4406)",
                         SKY_LIVE_INFO_PREFIX + "ic4406-object",
                         WIKIMEDIA_PREFIX + "/1/1a/Retinanebel.jpg"),
+                new PlanetaryNebulaRowView(getContext()));
+        planetaryNebulaMap.put(new PlanetaryNebula("Owl Nebula (M97)",
+                        SKY_LIVE_INFO_PREFIX + "messier-97-owl-nebula-object",
+                        WIKIMEDIA_PREFIX + "/1/10/The_Owl_Nebula_M97_Goran_Nilsson_%26_The_Liverpool_Telescope.jpg"),
                 new PlanetaryNebulaRowView(getContext()));
         int count = 0;
         for (final Map.Entry<PlanetaryNebula, PlanetaryNebulaRowView> entry
