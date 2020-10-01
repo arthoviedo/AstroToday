@@ -49,27 +49,31 @@ public class GalaxyFragment extends Fragment implements UpdatableFragment {
     public void initGalaxies() {
         galaxyMap.put(new Galaxy("Pinwheel Galaxy (M101)",
                         SKY_LIVE_INFO_PREFIX + "messier-101-the-pinwheel-galaxy-object",
-                        WIKIMEDIA_PREFIX + "/c/c5/M101_hires_STScI-PRC2006-10a.jpg"),
+                        WIKIMEDIA_PREFIX + "/thumb/c/c5/M101_hires_STScI-PRC2006-10a.jpg/1280px-M101_hires_STScI-PRC2006-10a.jpg"),
                 new GalaxyRowView(getContext()));
         galaxyMap.put(new Galaxy("Bode's Galaxy (M81)",
                         SKY_LIVE_INFO_PREFIX + "messier-81-bodes-galaxy-object",
-                        WIKIMEDIA_PREFIX + "/6/63/Messier_81_HST.jpg"),
+                        WIKIMEDIA_PREFIX + "/thumb/6/63/Messier_81_HST.jpg/1280px-Messier_81_HST.jpg"),
                 new GalaxyRowView(getContext()));
         galaxyMap.put(new Galaxy("Southern Pinwheel Galaxy (M83)",
                         SKY_LIVE_INFO_PREFIX + "messier-83-southern-pinwheel-galaxy-object",
-                        WIKIMEDIA_PREFIX + "/d/d5/Hubble_view_of_barred_spiral_galaxy_Messier_83.jpg"),
+                        WIKIMEDIA_PREFIX + "/thumb/d/d5/Hubble_view_of_barred_spiral_galaxy_Messier_83.jpg/1280px-Hubble_view_of_barred_spiral_galaxy_Messier_83.jpg"),
                 new GalaxyRowView(getContext()));
         galaxyMap.put(new Galaxy("Triangulum Galaxy (M33)",
                         SKY_LIVE_INFO_PREFIX + "messier-33-triangulum-galaxy-object",
-                        WIKIMEDIA_PREFIX + "/6/64/VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg"),
+                        WIKIMEDIA_PREFIX + "/thumb/6/64/VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg/859px-VST_snaps_a_very_detailed_view_of_the_Triangulum_Galaxy.jpg"),
                 new GalaxyRowView(getContext()));
         galaxyMap.put(new Galaxy("Sculptor Galaxy (NGC 253)",
                         SKY_LIVE_INFO_PREFIX + "ngc253-sculptor-filament-object",
-                        WIKIMEDIA_PREFIX + "/0/08/Sculptor_Galaxy_by_VISTA.jpg"),
+                        WIKIMEDIA_PREFIX + "/thumb/0/08/Sculptor_Galaxy_by_VISTA.jpg/1280px-Sculptor_Galaxy_by_VISTA.jpg"),
                 new GalaxyRowView(getContext()));
         galaxyMap.put(new Galaxy("Croc's Eye Galaxy (M94)",
                         SKY_LIVE_INFO_PREFIX + "messier-94-crocs-eye-galaxy-object",
                         WIKIMEDIA_PREFIX + "/1/1c/Messier_94.jpg"),
+                new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("Vacuum Cleaner Galaxy (M109)",
+                        SKY_LIVE_INFO_PREFIX + "messier-109-object",
+                        WIKIMEDIA_PREFIX + "/3/3d/Messier109_-_SDSS_DR14_(panorama).jpg"),
                 new GalaxyRowView(getContext()));
         int count = 0;
         for (final Map.Entry<Galaxy, GalaxyRowView> entry

@@ -85,7 +85,7 @@ public class PlanetaryNebulaFragment extends Fragment implements UpdatableFragme
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(new PlanetaryNebula("Helix Nebula (NGC 7293)",
                         SKY_LIVE_INFO_PREFIX + "ngc7293-helix-nebula-object",
-                            WIKIMEDIA_PREFIX + "/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_%28PIA09178%29.jpg"),
+                            WIKIMEDIA_PREFIX + "/thumb/7/7f/Comets_Kick_up_Dust_in_Helix_Nebula_(PIA09178).jpg/1231px-Comets_Kick_up_Dust_in_Helix_Nebula_(PIA09178).jpg"),
                 new PlanetaryNebulaRowView(getContext()));
         planetaryNebulaMap.put(new PlanetaryNebula("Copeland's Blue Snowball (NGC 7662)",
                         SKY_LIVE_INFO_PREFIX + "ngc7662-copelands-blue-snowball-object",
