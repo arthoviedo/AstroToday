@@ -75,6 +75,10 @@ public class GalaxyFragment extends Fragment implements UpdatableFragment {
                         SKY_LIVE_INFO_PREFIX + "messier-109-object",
                         WIKIMEDIA_PREFIX + "/3/3d/Messier109_-_SDSS_DR14_(panorama).jpg"),
                 new GalaxyRowView(getContext()));
+        galaxyMap.put(new Galaxy("NGC 2997",
+                        SKY_LIVE_INFO_PREFIX + "ngc2997-object",
+                        WIKIMEDIA_PREFIX + "/4/4c/N2997s.jpg"),
+                new GalaxyRowView(getContext()));
         int count = 0;
         for (final Map.Entry<Galaxy, GalaxyRowView> entry
                 : galaxyMap.entrySet()) {

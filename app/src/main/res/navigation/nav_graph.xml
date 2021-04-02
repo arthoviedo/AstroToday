@@ -6,8 +6,8 @@
     app:startDestination="@id/planets_fragment">
     <fragment
         android:id="@+id/planets_fragment"
-        android:name="smarthur.space.astrotoday.PlanetFragment"
-        android:label="@string/planets_fragment_label"
+        android:name="smarthur.space.astrotoday.PlanetFragment2"
+        android:label="@string/planets_fragment_label_2"
         tools:layout="@layout/fragment_planets">
     </fragment>
     <fragment

@@ -7,7 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -16,14 +19,20 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import smarthur.space.astrotoday.model.PlanetViewModel;
 import smarthur.space.astrotoday.model.PlanetsEnum;
+import smarthur.space.astrotoday.model.PlanetsViewModel;
+import smarthur.space.astrotoday.model.SkyObjectViewModel;
+import smarthur.space.astrotoday.network.InfoFetcher;
 
-public class PlanetFragment extends Fragment implements UpdatableFragment {
+public class PlanetFragment2 extends Fragment implements UpdatableFragment {
     Map<PlanetsEnum, PlanetRowView> planetMap = new HashMap<>();
 
+    private PlanetsViewModel model;
 
     private final static String COOKIE_INFO =
         "-33.86785%7C151.20732%7CSydney+%28AU%29%7CAustralia%2FSydney%7C0";
@@ -40,9 +49,42 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         initPlanets(view);
         super.onViewCreated(view, savedInstanceState);
+
+        model = new ViewModelProvider(this).get(PlanetsViewModel.class);
+
+        // Create the observer which updates the UI.
+        final Observer<List<PlanetViewModel>> planetsObserver = new Observer<List<PlanetViewModel>>() {
+            @Override
+            public void onChanged(@Nullable final List<PlanetViewModel> newPlanetList) {
+                // Update the UI, in this case, a TextView.
+
+                for(PlanetViewModel planetViewModel : newPlanetList) {
+                    PlanetRowView planetRowView = planetMap.get(planetViewModel.planet);
+
+                    updatePlanetVisibility(
+                            planetViewModel.planet,
+                            planetViewModel.magnitude,
+                            planetViewModel.size,
+                            planetRowView);
+
+                    planetRowView.transitInfoView.updateTransit(
+                            getActivity(),
+                            planetViewModel.transitInfo.riseTime,
+                            planetViewModel.transitInfo.transitTime,
+                            planetViewModel.transitInfo.setTime);
+                }
+
+            }
+        };
+
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        model.getSkyObjectsList().observe(getViewLifecycleOwner(), planetsObserver);
     }
 
-
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     public void initPlanets(View view) {
         planetMap.put(PlanetsEnum.MERCURY, (PlanetRowView) view.findViewById(R.id.mercuryRow));
@@ -59,60 +101,10 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
     }
 
     public void update() {
-        for (Map.Entry<PlanetsEnum, PlanetRowView> entry : planetMap.entrySet()) {
-            fetchPlanetInfo(
-                entry.getKey(),
-                entry.getValue());
-        }
-
+        InfoFetcher.updateData(planetMap.keySet(), model);
     }
 
 
-
-    public void fetchPlanetInfo(
-        final PlanetsEnum planet,
-        final PlanetRowView view) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Document doc = getDocument(planet.url);
-                    Elements parent = doc.select("a[name=\"brightness\"]");
-                    Elements temp1 = parent.next(); //<h1> Planet Brightness
-                    Elements temp2 = temp1.next();          //<p>
-                    Element div1 = temp2.next().first();          //<div>
-                    Element magnitude = div1.child(1); // AR
-                    Element div2 = temp2.next().next().first();
-                    Element size = div2.child(1); //Diameter
-                    updatePlanetVisibility(
-                        planet,
-                        magnitude.text(),
-                        size.text(),
-                        view);
-
-                    Elements riseInfo = doc.select("div[class=\"rise\"]");
-                    Elements transitInfo = riseInfo.next();
-                    Elements setInfo = transitInfo.next();
-
-                    view.transitInfoView.updateTransit(
-                            getActivity(),
-                            riseInfo.first().child(2).text(),
-                            transitInfo.first().child(2).text(),
-                            setInfo.first().child(2).text());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    Document getDocument(String url) throws Exception{
-        Connection connection = Jsoup.connect(url);
-        connection.cookie(
-            "localdata_v1",
-            COOKIE_INFO);
-        return connection.get();
-    }
 
     public void updatePlanetVisibility(
         final PlanetsEnum planet,
@@ -137,6 +129,4 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
             }
         });
     }
-
-
 }
