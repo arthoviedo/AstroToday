@@ -12,12 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -25,17 +19,13 @@ import java.util.Map;
 
 import smarthur.space.astrotoday.model.PlanetViewModel;
 import smarthur.space.astrotoday.model.PlanetsEnum;
-import smarthur.space.astrotoday.model.PlanetsViewModel;
+import smarthur.space.astrotoday.model.SkyObjectsListViewModel;
 import smarthur.space.astrotoday.model.SkyObjectViewModel;
 import smarthur.space.astrotoday.network.InfoFetcher;
 
 public class PlanetFragment2 extends Fragment implements UpdatableFragment {
     Map<PlanetsEnum, PlanetRowView> planetMap = new HashMap<>();
-
-    private PlanetsViewModel model;
-
-    private final static String COOKIE_INFO =
-        "-33.86785%7C151.20732%7CSydney+%28AU%29%7CAustralia%2FSydney%7C0";
+    private SkyObjectsListViewModel model;
 
     @Override
     public View onCreateView(
@@ -50,14 +40,13 @@ public class PlanetFragment2 extends Fragment implements UpdatableFragment {
         initPlanets(view);
         super.onViewCreated(view, savedInstanceState);
 
-        model = new ViewModelProvider(this).get(PlanetsViewModel.class);
-
+        model = new ViewModelProvider(this).get(SkyObjectsListViewModel.class);
         // Create the observer which updates the UI.
-        final Observer<List<PlanetViewModel>> planetsObserver = new Observer<List<PlanetViewModel>>() {
-            @Override
-            public void onChanged(@Nullable final List<PlanetViewModel> newPlanetList) {
-                // Update the UI, in this case, a TextView.
 
+        Observer<? extends List<? extends SkyObjectViewModel>> planetsObserver = new Observer<List<PlanetViewModel>>() {
+            @Override
+            public void onChanged(List<PlanetViewModel> newPlanetList) {
+                // Update the UI, in this case, a TextView.
                 for(PlanetViewModel planetViewModel : newPlanetList) {
                     PlanetRowView planetRowView = planetMap.get(planetViewModel.planet);
 
@@ -78,7 +67,9 @@ public class PlanetFragment2 extends Fragment implements UpdatableFragment {
         };
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        model.getSkyObjectsList().observe(getViewLifecycleOwner(), planetsObserver);
+        model.getSkyObjectsList().observe(
+                getViewLifecycleOwner(),
+                (Observer<? super List<? extends SkyObjectViewModel>>) planetsObserver);
     }
 
     @Override
@@ -103,8 +94,6 @@ public class PlanetFragment2 extends Fragment implements UpdatableFragment {
     public void update() {
         InfoFetcher.updateData(planetMap.keySet(), model);
     }
-
-
 
     public void updatePlanetVisibility(
         final PlanetsEnum planet,

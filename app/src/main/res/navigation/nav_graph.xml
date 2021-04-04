@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_planetary_nabulae"/>
     <fragment
         android:id="@+id/galaxies_fragment"
-        android:name="smarthur.space.astrotoday.GalaxyFragment"
-        android:label="@string/galaxies_fragment_label"
+        android:name="smarthur.space.astrotoday.GalaxyFragment2"
+        android:label="@string/galaxies_fragment_label2"
         tools:layout="@layout/fragment_galaxy"/>
 </navigation>

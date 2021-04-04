@@ -20,18 +20,15 @@ import java.util.Locale;
 import java.util.Map;
 
 import smarthur.space.astrotoday.model.PlanetsEnum;
+import smarthur.space.astrotoday.util.Constants;
 
 public class PlanetFragment extends Fragment implements UpdatableFragment {
     Map<PlanetsEnum, PlanetRowView> planetMap = new HashMap<>();
 
-
-    private final static String COOKIE_INFO =
-        "-33.86785%7C151.20732%7CSydney+%28AU%29%7CAustralia%2FSydney%7C0";
-
     @Override
     public View onCreateView(
-        LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_planets, container, false);
@@ -41,7 +38,6 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
         initPlanets(view);
         super.onViewCreated(view, savedInstanceState);
     }
-
 
 
     public void initPlanets(View view) {
@@ -61,17 +57,15 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
     public void update() {
         for (Map.Entry<PlanetsEnum, PlanetRowView> entry : planetMap.entrySet()) {
             fetchPlanetInfo(
-                entry.getKey(),
-                entry.getValue());
+                    entry.getKey(),
+                    entry.getValue());
         }
 
     }
 
-
-
     public void fetchPlanetInfo(
-        final PlanetsEnum planet,
-        final PlanetRowView view) {
+            final PlanetsEnum planet,
+            final PlanetRowView view) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -85,10 +79,10 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
                     Element div2 = temp2.next().next().first();
                     Element size = div2.child(1); //Diameter
                     updatePlanetVisibility(
-                        planet,
-                        magnitude.text(),
-                        size.text(),
-                        view);
+                            planet,
+                            magnitude.text(),
+                            size.text(),
+                            view);
 
                     Elements riseInfo = doc.select("div[class=\"rise\"]");
                     Elements transitInfo = riseInfo.next();
@@ -106,34 +100,34 @@ public class PlanetFragment extends Fragment implements UpdatableFragment {
         }).start();
     }
 
-    Document getDocument(String url) throws Exception{
+    Document getDocument(String url) throws Exception {
         Connection connection = Jsoup.connect(url);
         connection.cookie(
-            "localdata_v1",
-            COOKIE_INFO);
+                "localdata_v1",
+                Constants.COOKIE_INFO);
         return connection.get();
     }
 
     public void updatePlanetVisibility(
-        final PlanetsEnum planet,
-        final String magnitude,
-        final String size,
-        final PlanetRowView view) {
+            final PlanetsEnum planet,
+            final String magnitude,
+            final String size,
+            final PlanetRowView view) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 view.planetMagnitude.setText(
-                    Html.fromHtml(String.format(
-                        Locale.US,
-                        "Magn.:(%.1f/<b>%.1f</b>/%.1f)",
-                        planet.minMagnitude,
-                        Float.parseFloat(magnitude),
-                        planet.maxMagnitude)));
+                        Html.fromHtml(String.format(
+                                Locale.US,
+                                "Magn.:(%.1f/<b>%.1f</b>/%.1f)",
+                                planet.minMagnitude,
+                                Float.parseFloat(magnitude),
+                                planet.maxMagnitude)));
                 view.planetSize.setText(
-                    Html.fromHtml(String.format("Size:(%s\"/<b>%s</b>/%s\")",
-                        planet.minSize,
-                        size,
-                        planet.maxSize)));
+                        Html.fromHtml(String.format("Size:(%s\"/<b>%s</b>/%s\")",
+                                planet.minSize,
+                                size,
+                                planet.maxSize)));
             }
         });
     }

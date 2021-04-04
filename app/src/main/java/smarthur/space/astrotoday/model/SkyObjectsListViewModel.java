@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-public class PlanetsViewModel extends ViewModel {
+public class SkyObjectsListViewModel extends ViewModel {
 
-    private MutableLiveData<List<PlanetViewModel>> skyObjectsList;
+    private MutableLiveData<List<? extends SkyObjectViewModel>> skyObjectsList;
 
-    public MutableLiveData<List<PlanetViewModel>> getSkyObjectsList() {
+    public MutableLiveData<List<? extends SkyObjectViewModel>> getSkyObjectsList() {
         if (skyObjectsList == null) {
             skyObjectsList = new MutableLiveData<>();
         }
