@@ -12,8 +12,8 @@
     </fragment>
     <fragment
         android:id="@+id/planetary_nebulae_fragment"
-        android:name="smarthur.space.astrotoday.PlanetaryNebulaFragment"
-        android:label="@string/planetary_nebulae_fragment_label"
+        android:name="smarthur.space.astrotoday.PlanetaryNebulaFragment2"
+        android:label="@string/planetary_nebulae_fragment_label2"
         tools:layout="@layout/fragment_planetary_nabulae"/>
     <fragment
         android:id="@+id/galaxies_fragment"

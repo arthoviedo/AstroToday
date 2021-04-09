@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import smarthur.space.astrotoday.model.PlanetsEnum;
+import smarthur.space.astrotoday.model.enums.PlanetsEnum;
 import smarthur.space.astrotoday.util.Constants;
 
 public class PlanetFragment extends Fragment implements UpdatableFragment {

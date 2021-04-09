@@ -20,14 +20,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import smarthur.space.astrotoday.model.enums.GalaxyEnum;
-import smarthur.space.astrotoday.model.GalaxyViewModel;
+import smarthur.space.astrotoday.model.PlanetaryNebulaViewModel;
 import smarthur.space.astrotoday.model.SkyObjectViewModel;
 import smarthur.space.astrotoday.model.SkyObjectsListViewModel;
+import smarthur.space.astrotoday.model.enums.PlanetaryNebulaeEnum;
 import smarthur.space.astrotoday.network.InfoFetcher;
 
-public class GalaxyFragment2 extends Fragment implements UpdatableFragment {
-    Map<GalaxyEnum, GalaxyRowView> galaxyMap = new HashMap<>();
+public class PlanetaryNebulaFragment2 extends Fragment implements UpdatableFragment {
+    Map<PlanetaryNebulaeEnum, PlanetaryNebulaRowView> planetaryNebulaMap = new HashMap<>();
     private SkyObjectsListViewModel model;
 
     @Override
@@ -36,50 +36,47 @@ public class GalaxyFragment2 extends Fragment implements UpdatableFragment {
             Bundle savedInstanceState
     ) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_galaxy, container, false);
+        return inflater.inflate(R.layout.fragment_planetary_nabulae, container, false);
     }
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        initGalaxies();
+    public void onViewCreated(@NonNull final View view, Bundle savedInstanceState) {
+        initPlanetaryNebulae();
         super.onViewCreated(view, savedInstanceState);
-
         model = new ViewModelProvider(this).get(SkyObjectsListViewModel.class);
 
-        Observer<? extends List<? extends SkyObjectViewModel>> galaxiesObserver = new Observer<List<GalaxyViewModel>>() {
+        Observer<? extends List<? extends SkyObjectViewModel>> planetaryNebulaeObserver = new Observer<List<PlanetaryNebulaViewModel>>() {
+
             @Override
-            public void onChanged(List<GalaxyViewModel> newGalaxyList) {
-                for (GalaxyViewModel galaxyViewModel : newGalaxyList) {
-                    GalaxyRowView galaxyRowView = galaxyMap.get(galaxyViewModel.galaxy);
-                    updateGalaxy(
-                            galaxyViewModel.magnitude,
-                            galaxyViewModel.majorSize,
-                            galaxyViewModel.minorSize,
-                            galaxyRowView);
-                    galaxyRowView.transitInfoView.updateTransit(
+            public void onChanged(List<PlanetaryNebulaViewModel> viewModels) {
+                for (PlanetaryNebulaViewModel viewModel : viewModels) {
+                    PlanetaryNebulaRowView rowView  = planetaryNebulaMap.get(viewModel.planetaryNebula);
+                    updatePlanetaryNebula(
+                            viewModel.magnitude,
+                            viewModel.majorSize,
+                            viewModel.minorSize,
+                            rowView);
+                    rowView.transitInfoView.updateTransit(
                             getActivity(),
-                            galaxyViewModel.transitInfo.riseTime,
-                            galaxyViewModel.transitInfo.transitTime,
-                            galaxyViewModel.transitInfo.setTime);
+                            viewModel.transitInfo.riseTime,
+                            viewModel.transitInfo.transitTime,
+                            viewModel.transitInfo.setTime);
                 }
             }
         };
-
         model.getSkyObjectsList().observe(
                 getViewLifecycleOwner(),
-                (Observer<? super List<? extends SkyObjectViewModel>>) galaxiesObserver
-        );
+                (Observer<? super List<? extends SkyObjectViewModel>>) planetaryNebulaeObserver);
     }
 
-    public void initGalaxies() {
-        for(GalaxyEnum galaxy : GalaxyEnum.values()) {
-            galaxyMap.put(galaxy, new GalaxyRowView(getContext()));
+    public void initPlanetaryNebulae() {
+        for (PlanetaryNebulaeEnum planetaryNebula : PlanetaryNebulaeEnum.values()) {
+            planetaryNebulaMap.put(planetaryNebula, new PlanetaryNebulaRowView(getContext()));
         }
-
         int count = 0;
-        for (final Map.Entry<GalaxyEnum, GalaxyRowView> entry
-                : galaxyMap.entrySet()) {
+        for (final Map.Entry<PlanetaryNebulaeEnum, PlanetaryNebulaRowView> entry
+                : planetaryNebulaMap.entrySet()) {
             entry.getValue().nameLabel.setText(entry.getKey().name);
-            ((LinearLayout) getView().findViewById(R.id.galaxies)).addView(entry.getValue());
+            ((LinearLayout) getView().findViewById(R.id.planetary_nabulae)).addView(entry.getValue());
             Glide.with(this).load(entry.getKey().imageUrl).into(entry.getValue().image);
             entry.getValue().image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,20 +100,17 @@ public class GalaxyFragment2 extends Fragment implements UpdatableFragment {
 
 
     public void update() {
-        InfoFetcher.updateData(galaxyMap.keySet(), model);
+        InfoFetcher.updateData(planetaryNebulaMap.keySet(), model);
     }
 
-    public void updateGalaxy(
+    public void updatePlanetaryNebula(
             final String visualMagnitude,
             final String majorSize,
             final String minorSize,
-            final GalaxyRowView view) {
+            final PlanetaryNebulaRowView view) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (view == null) {
-                    System.out.println("Error");
-                }
                 view.visualMagnitude.setText(
                         Html.fromHtml(String.format(
                                 Locale.US,

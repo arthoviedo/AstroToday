@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,7 +17,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import smarthur.space.astrotoday.model.PlanetViewModel;
-import smarthur.space.astrotoday.model.PlanetsEnum;
+import smarthur.space.astrotoday.model.enums.PlanetsEnum;
 import smarthur.space.astrotoday.model.SkyObjectsListViewModel;
 import smarthur.space.astrotoday.model.SkyObjectViewModel;
 import smarthur.space.astrotoday.network.InfoFetcher;

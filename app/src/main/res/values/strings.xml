@@ -5,6 +5,7 @@
     <string name="planets_fragment_label">Planets</string>
     <string name="planets_fragment_label_2">Planets2</string>
     <string name="planetary_nebulae_fragment_label">Planetary Nebulae</string>
+    <string name="planetary_nebulae_fragment_label2">Planetary Nebulae2</string>
     <string name="galaxies_fragment_label">Galaxies</string>
     <string name="galaxies_fragment_label2">Galaxies2</string>
     <string name="next">Next</string>

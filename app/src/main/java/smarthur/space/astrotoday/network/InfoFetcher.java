@@ -14,11 +14,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-import smarthur.space.astrotoday.model.GalaxyEnum;
+import smarthur.space.astrotoday.model.PlanetaryNebulaViewModel;
+import smarthur.space.astrotoday.model.TransitInfo;
+import smarthur.space.astrotoday.model.enums.GalaxyEnum;
 import smarthur.space.astrotoday.model.GalaxyViewModel;
 import smarthur.space.astrotoday.model.PlanetViewModel;
-import smarthur.space.astrotoday.model.PlanetsEnum;
-import smarthur.space.astrotoday.model.SkyObjectEnum;
+import smarthur.space.astrotoday.model.enums.PlanetaryNebulaeEnum;
+import smarthur.space.astrotoday.model.enums.PlanetsEnum;
+import smarthur.space.astrotoday.model.enums.SkyObjectEnum;
 import smarthur.space.astrotoday.model.SkyObjectsListViewModel;
 import smarthur.space.astrotoday.model.SkyObjectViewModel;
 import smarthur.space.astrotoday.util.Constants;
@@ -38,21 +41,12 @@ public class InfoFetcher {
                     Element magnitude = div1.child(1); // AR
                     Element div2 = temp2.next().next().first();
                     Element size = div2.child(1); //Diameter
-                    Elements riseInfo = doc.select("div[class=\"rise\"]");
-                    Elements transitInfo = riseInfo.next();
-                    Elements setInfo = transitInfo.next();
-
                     String magnitudeText = magnitude.text();
                     String sizeText = size.text();
-                    String riseInfoText = riseInfo.first().child(2).text();
-                    String transitInfoText = transitInfo.first().child(2).text();
-                    String setInfoText = setInfo.first().child(2).text();
 
                     result.magnitude = magnitudeText;
                     result.size = sizeText;
-                    result.transitInfo.riseTime = riseInfoText;
-                    result.transitInfo.transitTime = transitInfoText;
-                    result.transitInfo.setTime = setInfoText;
+                    result.transitInfo = extractTransitInfo(doc);
 
                     result.planet = key;
 
@@ -71,6 +65,7 @@ public class InfoFetcher {
             @Override
             public SkyObjectViewModel call() throws Exception {
                 GalaxyViewModel result = new GalaxyViewModel();
+                result.galaxy = key;
                 try {
                     Document doc = getDocument(url);
                     Elements visualMagnitude = doc.select(":matchesOwn(Magnitude V)");
@@ -79,17 +74,11 @@ public class InfoFetcher {
                     Elements majorSizeValue = majorSize.next(); //<h1> Planet Brightness
                     Elements minorSize = doc.select(":matchesOwn(Minor Angular Size)");
                     Elements minorSizeValue = minorSize.next(); //<h1> Planet Brightness
-                    Elements riseInfo = doc.select("div[class=\"rise\"]");
-                    Elements transitInfo = riseInfo.next();
-                    Elements setInfo = transitInfo.next();
 
                     result.magnitude = visualMagnitudeValue.text();
                     result.majorSize = majorSizeValue.text();
                     result.minorSize = minorSizeValue.text();
-                    result.transitInfo.riseTime = riseInfo.first().child(2).text();
-                    result.transitInfo.transitTime = transitInfo.first().child(2).text();
-                    result.transitInfo.setTime = setInfo.first().child(2).text();
-                    result.galaxy = key;
+                    result.transitInfo = extractTransitInfo(doc);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,6 +86,50 @@ public class InfoFetcher {
                 return result;
             }
         });
+    }
+
+    static FutureTask<SkyObjectViewModel> fetchPlanetaryNebulaInfo(
+            final PlanetaryNebulaeEnum key,
+            final String url) {
+        return new FutureTask<>(new Callable<SkyObjectViewModel>() {
+            @Override
+            public SkyObjectViewModel call() throws Exception {
+                PlanetaryNebulaViewModel result = new PlanetaryNebulaViewModel();
+                result.planetaryNebula = key;
+                try {
+                    Document doc = getDocument(url);
+                    Elements visualMagnitude = doc.select(":matchesOwn(Magnitude V)");
+                    Elements visualMagnitudeValue = visualMagnitude.next(); //<h1> Planet Brightness
+                    Elements majorSize = doc.select(":matchesOwn(Major Angular Size)");
+                    Elements majorSizeValue = majorSize.next(); //<h1> Planet Brightness
+                    Elements minorSize = doc.select(":matchesOwn(Minor Angular Size)");
+                    Elements minorSizeValue = minorSize.next(); //<h1> Planet Brightness
+
+                    result.magnitude = visualMagnitudeValue.text();
+                    result.majorSize = majorSizeValue.text();
+                    result.minorSize = minorSizeValue.text();
+                    result.transitInfo = extractTransitInfo(doc);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return result;
+            }
+        });
+    }
+
+    static TransitInfo extractTransitInfo(Document doc) {
+        Elements riseInfo = doc.select("div[class=\"rise\"]");
+        Elements transitInfo = riseInfo.next();
+        Elements setInfo = transitInfo.next();
+        try {
+            return new TransitInfo(
+                    riseInfo.first().child(2).text(),
+                    transitInfo.first().child(2).text(),
+                    setInfo.first().child(2).text());
+        } catch (Exception e) {
+            return new TransitInfo("N/A", "N/A", "N/A");
+        }
     }
 
    static  Document getDocument(String url) throws Exception {
@@ -117,6 +150,9 @@ public class InfoFetcher {
                 fetchTask = fetchPlanetInfo((PlanetsEnum) skyObject, ((PlanetsEnum) skyObject).url);
                } else if (skyObject instanceof GalaxyEnum) {
                    fetchTask = fetchGalaxyInfo((GalaxyEnum) skyObject, ((GalaxyEnum) skyObject).url);
+               }
+               else if (skyObject instanceof PlanetaryNebulaeEnum) {
+                   fetchTask = fetchPlanetaryNebulaInfo((PlanetaryNebulaeEnum) skyObject, ((PlanetaryNebulaeEnum) skyObject).url);
                }
                if (fetchTask == null) {
                    throw new Exception("Invalid sky object type");

@@ -1,4 +1,4 @@
-package smarthur.space.astrotoday.model;
+package smarthur.space.astrotoday.model.enums;
 
 import smarthur.space.astrotoday.util.Constants;
 

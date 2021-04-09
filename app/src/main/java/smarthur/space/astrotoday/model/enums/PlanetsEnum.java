@@ -1,4 +1,6 @@
-package smarthur.space.astrotoday.model;
+package smarthur.space.astrotoday.model.enums;
+
+import smarthur.space.astrotoday.model.enums.SkyObjectEnum;
 
 public enum PlanetsEnum implements SkyObjectEnum {
     MERCURY("Mercury", -2.48f, 7.25f, 4.5f, 13f),
