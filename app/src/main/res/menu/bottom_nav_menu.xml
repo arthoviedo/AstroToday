@@ -3,7 +3,7 @@
     <item android:id="@+id/planets"
         android:title="Planets2"/>
     <item android:id="@+id/planetary_nebulae"
-        android:title="Planetary Nebulae"/>
+        android:title="Planetary Nebulae2"/>
     <item android:id="@+id/galaxies"
         android:title="Galaxies2"/>
 </menu>

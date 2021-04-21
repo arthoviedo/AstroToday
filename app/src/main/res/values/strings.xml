@@ -17,4 +17,6 @@
     <string name="transit_time">Transit: %s</string>
     <string name="set_time">Set: %s</string>
 
+    <string name="action_sort_by_size">Sort: Size</string>
+
 </resources>
